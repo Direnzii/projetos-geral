@@ -162,9 +162,9 @@ class AssistirFilme():
               "▌  ▐▐ ▌▐ ▌▛▀  ▞▀▌▐ ▛▀ ▞▀▌▐ ▖▌ ▌▌  ▐ ▌ ▌ ▌ ▌▌ ▌  ▌ ▌ ▌▐ ▞▀▌▚▄▌▌ ▌\n"
               "▘  ▀▘▘▘▝ ▘▝▀▘ ▝▀▘ ▘▝▀▘▝▀▘ ▀ ▝▀ ▘  ▀▘▝▀  ▝▀▘▝▀   ▘ ▘ ▘▀▘▝▀▘▗▄▘▝▀")
 def main():
+    aleatorio = AssistirFilme()
+    aleatorio.banner()
     while True:
-        aleatorio = AssistirFilme()
-        aleatorio.banner()
         print("**********************\n***DIGITE UMA OPÇÃO***\n(1) - Aleatório\n(2) - Por rate\n(3) - Por gênero\n(4) - Por rate e gênero")
         try:
             opcao = int(input('Insira aqui: '))
