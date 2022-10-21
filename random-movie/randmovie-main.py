@@ -146,7 +146,7 @@ class AssistirFilme():
                 if not sinopse:
                     sinopse = "Não encontrado"
                 votos = self.filme['vote_average']
-                print("*** SEU FILME É ***")
+                print("*******************\n*** SEU FILME É ***")
                 print('Nome: ', nome, '\nSinopse: ', sinopse, '\nGenero: ', genero, '\nMédia de votos: ', votos)
                 input("Pressione enter para uma nova busca ...")
                 os.system('cls' if os.name == 'nt' else 'clear')
@@ -191,7 +191,7 @@ def main():
             elif opcao == 4:
                 rate = int(input("Insira um rate minimo para a busca, de 1 a 10: "))
                 if rate >= 1 and rate <=10:
-                    print("***Generos disponiveis***")
+                    print("*************************\n***Generos disponiveis***")
                     aleatorio.printar_generos()
                     genero = input("Insira um gênero valido: ")
                     genero = genero.lower()
@@ -206,7 +206,7 @@ def main():
                 aleatorio.error()
         except Exception as e:
             print("Não existe essa opção !!")
-        input("Pressione enter para uma nova busca ...")
+        #input("Pressione enter para uma nova busca ...")
 if __name__ == '__main__':
     main()
 # aleatorio = AssistirFilme()
