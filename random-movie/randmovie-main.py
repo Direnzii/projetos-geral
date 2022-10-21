@@ -1,11 +1,9 @@
 import requests
 import random
-import time
-
+import os
 class AssistirFilme():
     token = "7d58db8a79eb8e9309fdff18395faabf"
     filme = {}
-
     def get_genero_filme(self):
         genero = self.filme['genres'][0]
         if not genero:
@@ -13,7 +11,6 @@ class AssistirFilme():
             return sem_genero
         else:
             return genero['name']
-
     def printar_generos(self):
         saida = ''
         dict = self.get_genre_name()
@@ -24,14 +21,12 @@ class AssistirFilme():
         for i in range(len(saida) - n):
             final_str = final_str + saida[i]
         print(final_str)
-
     def get_genre_name(self):
         list = []
         dict = self.get_genre()
         for i in dict:
             list.append(i)
         return list
-
     def get_genre(self):
         url = f"https://api.themoviedb.org/3/genre/movie/list?api_key={self.token}"
         full = requests.get(url).json()['genres']
@@ -41,27 +36,22 @@ class AssistirFilme():
             id: int = genre["id"]
             dict_genero.update({genero.lower(): id})
         return dict_genero
-
     def numero_aleatorio(self):
         numero_aleatorio = random.randrange(1, 501)
         return numero_aleatorio
-
     def chunks(self, lista):
         for i in range(0, len(lista), 4):
             yield lista[i:i + 4]
-
     def lista_aleatoria(self, lista):
         lista = list(self.chunks(lista))
         count_list = len(lista)
         numero = random.randrange(0, count_list)
         list_aleatoria = lista[numero]
         return list_aleatoria
-
     def requisicao(self, url):
         requisicao = requests.get(url)
         json = requisicao.json()
         return json
-
     def listar_filmes_rate_genero(self, rate, genero):
         while True:
             lista_filmes = []
@@ -83,7 +73,6 @@ class AssistirFilme():
                     id = movie['id']
                     lista_filmes.append(id)
                 return lista_filmes
-
     def listar_filmes_genero(self, genero):
         while True:
             lista_filmes = []
@@ -104,7 +93,6 @@ class AssistirFilme():
                     id = movie['id']
                     lista_filmes.append(id)
                 return lista_filmes
-
     def listar_filmes_rate(self, rate):
         while True:
             lista_filmes = []
@@ -123,7 +111,6 @@ class AssistirFilme():
                     id = movie['id']
                     lista_filmes.append(id)
                 return lista_filmes
-
     def listar_filmes(self):
         while True:
             lista_filmes = []
@@ -141,7 +128,6 @@ class AssistirFilme():
                     id = movie['id']
                     lista_filmes.append(id)
                 return lista_filmes
-
     def rodar(self, lista_filmes):
         i = True
         while i:
@@ -162,22 +148,26 @@ class AssistirFilme():
                 votos = self.filme['vote_average']
                 print("*** SEU FILME É ***")
                 print('Nome: ', nome, '\nSinopse: ', sinopse, '\nGenero: ', genero, '\nMédia de votos: ', votos)
+                input("Pressione enter para uma nova busca ...")
+                os.system('cls' if os.name == 'nt' else 'clear')
                 i = False
             except Exception as e:
                 continue
-
     def error(self):
         a = 0 / 0
         return a
-
+    def banner(self):
+        print("▛▀▘▗▜            ▜       ▐        ▗       ▌    ▀▛▘▌  ▗\n"
+              "▙▄ ▄▐ ▛▚▀▖▞▀▖ ▝▀▖▐ ▞▀▖▝▀▖▜▀ ▞▀▖▙▀▖▄ ▞▀▖ ▞▀▌▞▀▖  ▌ ▛▀▖▄ ▝▀▖▞▀▌▞▀▖\n"
+              "▌  ▐▐ ▌▐ ▌▛▀  ▞▀▌▐ ▛▀ ▞▀▌▐ ▖▌ ▌▌  ▐ ▌ ▌ ▌ ▌▌ ▌  ▌ ▌ ▌▐ ▞▀▌▚▄▌▌ ▌\n"
+              "▘  ▀▘▘▘▝ ▘▝▀▘ ▝▀▘ ▘▝▀▘▝▀▘ ▀ ▝▀ ▘  ▀▘▝▀  ▝▀▘▝▀   ▘ ▘ ▘▀▘▝▀▘▗▄▘▝▀")
 def main():
-    input("Pressione enter para iniciar ...")
     while True:
         aleatorio = AssistirFilme()
-        print("***DIGITE UMA OPÇÃO***\n(1) - Aleatório\n(2) - Por rate\n(3) - Por gênero\n(4) - Por rate e gênero")
+        aleatorio.banner()
+        print("**********************\n***DIGITE UMA OPÇÃO***\n(1) - Aleatório\n(2) - Por rate\n(3) - Por gênero\n(4) - Por rate e gênero")
         try:
             opcao = int(input('Insira aqui: '))
-            time.sleep(1)
             if opcao == 1:
                 lista_filmes = aleatorio.listar_filmes()
                 lista_aleatoria = aleatorio.lista_aleatoria(lista_filmes)
@@ -191,7 +181,7 @@ def main():
                 else:
                     print("Rate inválido, fechando !!")
             elif opcao == 3:
-                print("***Generos disponiveis***")
+                print("*************************\n***Generos disponiveis***")
                 aleatorio.printar_generos()
                 genero = input("Insira um gênero valido: ")
                 genero = genero.lower()
@@ -205,8 +195,8 @@ def main():
                     aleatorio.printar_generos()
                     genero = input("Insira um gênero valido: ")
                     genero = genero.lower()
-                    lista_filmes = aleatorio.listar_filmes_rate_genero(rate, genero)
                     print("Esta é uma busca específica, pode demorar alguns segundos...")
+                    lista_filmes = aleatorio.listar_filmes_rate_genero(rate, genero)
                     lista_aleatoria = aleatorio.lista_aleatoria(lista_filmes)
                     aleatorio.rodar(lista_aleatoria)
                     i = False
@@ -216,11 +206,8 @@ def main():
                 aleatorio.error()
         except Exception as e:
             print("Não existe essa opção !!")
-        time.sleep(1)
         input("Pressione enter para uma nova busca ...")
-
 if __name__ == '__main__':
     main()
-
 # aleatorio = AssistirFilme()
 # a = aleatorio.printar_generos()  #PARA TESTES
