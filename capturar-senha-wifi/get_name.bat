@@ -1,1 +1,0 @@
-Netsh wlan show profile | find "s:" > ssid.txt
